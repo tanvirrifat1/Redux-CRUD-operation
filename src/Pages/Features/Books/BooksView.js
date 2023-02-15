@@ -1,9 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { deleteBook } from './BookSlice';
 
 const BooksView = () => {
-
     const books = useSelector((state) => state.bookReducer.books)
+    const dispatch = useDispatch()
+    const handleDeleteBook = (id) => {
+        dispatch(deleteBook(id))
+        toast.warning('Deleted SuccessFully', { autoClose: 500 })
+    }
+
     return (
         <div>
             <h2>List of Books</h2>
@@ -27,8 +35,10 @@ const BooksView = () => {
                                 <td>{title}</td>
                                 <td>{author}</td>
                                 <td>
-                                    <button className='btn btn-outline rounded-full '>Edit</button>
-                                    <button className='btn btn-outline rounded-full ml-1'>Delete</button>
+                                    <Link to='/edit_book' state={{ id, title, author }}>
+                                        <button className='btn btn-outline rounded-full '>Edit</button>
+                                    </Link>
+                                    <button onClick={() => { handleDeleteBook(id) }} className='btn btn-outline rounded-full ml-1'>Delete</button>
                                 </td>
                             </tr>
                         })}

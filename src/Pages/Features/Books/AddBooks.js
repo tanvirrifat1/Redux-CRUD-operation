@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addBook } from './BookSlice';
 
@@ -8,13 +9,14 @@ const AddBooks = () => {
     const [author, setAuthor] = useState('')
 
     const numberOfBooks = useSelector((state) => state.bookReducer.books.length)
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const book = { id: numberOfBooks + 1, title, author }
         dispatch(addBook(book))
+        navigate('/show_books', { replace: true })
         toast.success('Added Confirmed', { autoClose: 500 })
     }
 
@@ -53,7 +55,7 @@ const AddBooks = () => {
                                 />
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn btn-primary">Submit</button>
+                                <button className="btn btn-primary">add book</button>
                             </div>
                         </div>
                     </form>
