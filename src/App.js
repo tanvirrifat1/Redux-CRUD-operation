@@ -1,13 +1,10 @@
+import { RouterProvider } from 'react-router-dom';
 import './App.css';
-import CounterView from './features/Counter/CounterView';
-import PostView from './features/Posts/PostView';
-
+import Index, { router } from './Routes/Index';
 function App() {
   return (
     <div className="App">
-      <h1 className='text-2xl'>Welcome to React-Redux</h1>
-      <CounterView />
-      <PostView />
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }
